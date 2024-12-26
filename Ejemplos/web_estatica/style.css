@@ -1,0 +1,43 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #151515;
+}
+
+/* Header */
+header {
+    background-color: plum;
+    color: rgb(98, 0, 151);
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+footer {
+    background-color: plum;
+    color: rgb(98, 0, 151);
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1em;
+}
