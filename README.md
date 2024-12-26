@@ -1,5 +1,5 @@
-# DOCKER
-# ¿Qué es un contenedor?
+# 🌟 DOCKER 🌟
+## ¿Qué es un contenedor?
 
 Unidad de software que encapsula una aplicación y todas sus dependencias en un entorno aislado. Proporciona una forma de empaquetar, distribuir y ejecutar aplicaciones de manera consistente en diferentes entornos, ya sea en un entorno de desarrollo, pruebas o producción.
 
@@ -7,7 +7,7 @@ Los contenedores utilizan tecnologías de virtualización a nivel de sistema ope
 
 Ventajas: portabilidad, escalabilidad y eficiencia en el uso de recursos.
 
-# Conceptos básicos
+## Conceptos básicos
 Contenedor: Es una instancia de una imagen. Es un proceso que se ejecuta en un entorno aislado.
 
 Imagen: Es un archivo binario que contiene todos los elementos necesarios para ejecutar un contenedor. Es como una plantilla que se utiliza para crear contenedores.
@@ -15,21 +15,21 @@ Imagen: Es un archivo binario que contiene todos los elementos necesarios para e
 Dockerfile: Es un archivo de texto que contiene las instrucciones necesarias para crear una imagen.
 
 Docker Hub: Es un repositorio de imágenes de contenedor. Es como un GitHub pero de imágenes de contenedor.
-# Instalación en Linux
+## Instalación en Linux
 Utilizar el script de instalación oficial de Docker, que se encarga de instalar todas las dependencias necesarias y configurar el sistema para que Docker funcione correctamente
   
   curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 
 Este comando, descarga el script de instalación y lo ejecuta. Este comando, deberás lanzado con permisos root o añadir sudo delante del comando sh que ejecuta el script.
 
-# Comprobación de la instalación
+## Comprobación de la instalación
     docker -- version
 
     docker run hello-world
 
 Si todo ha ido bien, deberías ver un mensaje de bienvenida de Docker.
 
-# Iniciar un contenedor
+## Iniciar un contenedor
 Para arrancar un contenedor, utilizamos el comando docker run. Este comando, nos permite arrancar un contenedor a partir de una imagen. Su sintaxis básica es la siguiente:
 
     docker run <imagen>
@@ -64,7 +64,7 @@ Junto al comando docker run, podemos utilizar una serie de opciones para persona
 
 7. --env-file: Define un archivo de variables de entorno.
 
-# Política de reinicio
+## Política de reinicio
 
 Por defecto, cuando un contenedor falla o termina su proceso, Docker no lo reinicia por defecto. Si queremos que un contenedor se reinicie automáticamente, podemos utilizar la opción --restart. Esta opción nos permite definir una política de reinicio. Algunas de las políticas más comunes son:
 
@@ -82,7 +82,7 @@ Por ejemplo, si queremos que un contenedor se reinicie siempre que falle o se re
 
     docker run --restart always nginx
 
-# Mapeo de puertos
+## Mapeo de puertos
 El parámetro -p, mencionado anteriormente, nos permite mapear un puerto del host a un puerto del contenedor. En este caso, si queremos acceder al servidor web que hemos arrancado, necesitamos mapear el puerto 80 del contenedor un puerto del host. 
 
 En este caso he optado por el 8080, ya que en windows y mac el 80 a veces esta en uso. Para ello, podemos utilizar el siguiente comando:
@@ -91,7 +91,7 @@ En este caso he optado por el 8080, ya que en windows y mac el 80 a veces esta e
 
 Ahora si, si accedemos a localhost:8080, podremos ver el servidor web de nginx respondiendo perfectamente. 
 
-# Gestion de contenedores
+## Gestion de contenedores
 Por razones de depuración, a veces necesitamos conectarnos a un contenedor en ejecución y ejecutar un comando en él que no sea el principal. Para ello, podemos utilizar el comando exec.
 
 Por ejemplo, si quisieramos listar el contenido de un contenedor en ejecución, podríamos hacerlo con el siguiente comando:
