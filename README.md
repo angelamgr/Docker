@@ -143,5 +143,58 @@ Podemos eliminar todos los contenedores parados con el comando
 
 Este comando eliminará todos los contenedores que estén parados. Es útil para limpiar el sistema de contenedores que ya no necesitamos.
 
+## Imagenes de contenedores 
+Dos conceptos imporantes: una vez que creamos una imagen no se puede modificar (inmutabilidad) y están formadas por capas, cada una de ellas con una funcionalidad concreta.
+Para descargar manualmente una imagen usamos:
+
+    docker pull <nombre_imagen>
+
+Una vez descargada la imagen podemos ver las capas de las imagenes con el comando:
+
+    docker history
+
+Y si queremos ver las capas de la imagen, podemos hacerlo con el comando:
+
+    docker history <nombre_imagen>
+
+Todo el proceso de capas hace muy eficiente el almacenamiento de imágenes y la creación de los contenedores. Docker solo necesita descargar las capas que no tenga en local y montarlas en el contenedor. 
+
+Para borrar una imagen necesitamos el ID o nombre de la imagen. Podemos ver las imagenes que tenemos con:
+
+    docker images
+
+Y borrarlas con 
+
+    docker rmi <nombre_imagen>
+    docker rmi <ID_imagen>
+
+Si queremos borrar todas las imágenes que no estén en uso usamos el comando:
+
+    docker image prune
+
+## Dockerfile y Docjer build (construir imagenes, optimizar caché)
+Un Dockerfile es un archivo de texto que contiene una serie de instrucciones que Docker leerá y ejecutará para construir una imagen de contenedor. Cada instrucción en un Dockerfile crea una capa en la imagen. 
+
+Un Dockerfile se compone de una serie de instrucciones, cada una en una linea diferente. Las más comunes son:
+
+    FROM: Indica la imagen base que se utilizará para construir la nueva imagen.
+    RUN: Ejecuta comandos en la imagen.
+    COPY: Copia archivos o directorios desde el host a la imagen.
+    WORKDIR: Establece el directorio de trabajo por defecto para el resto de     
+    instrucciones.
+    CMD: Define el comando que se ejecutará cuando se inicie un contenedor a partir
+    de la imagen.
+    ENTRYPOINT: Define el comando que se ejecutará cuando se inicie un contenedor a
+    partir de la imagen, pero no se puede sobreescribir.
+
+Es importante tener en cuenta el orden de las instrucciones en un Dockerfile. Se ejecutan de arriba a abajo, secuencialmente, y Docker intenta reutilizar capas de imágenes anteriores para optimizar el proceso de construcción.
+
+Para probar los ficheros utilizamos el comando
+
+    docker build 
+
+El comando construye una imagen a partir de un Dockerfile y un contexto. El contexto es el directorio desde el que se construye la imagen y se utiliza de referencia para el copiado de archivos y directorios. 
+
+
 
 
