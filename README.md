@@ -195,6 +195,59 @@ Para probar los ficheros utilizamos el comando
 
 El comando construye una imagen a partir de un Dockerfile y un contexto. El contexto es el directorio desde el que se construye la imagen y se utiliza de referencia para el copiado de archivos y directorios. 
 
+## Entrypoints, argumentos y variables de entorno
+Las instrucciones ENTRYPOINT y CMD son las que definen qué comando se ejecutará cuando se inicie un contenedor. Tienen una funcionalidad similar pero con una diferencia importante.
 
+La instrucción ENTRYPOINT define el comando que se ejecutará cuando se inicie un contenedor. Si se especifica un ENTRYPOINT, este comando se ejecutará siempre que se inicie el contenedor, y cualquier comando que se pase al contenedor se ejecutará como argumentos del ENTRYPOINT
 
+La instrucción CMD también define el comando que se ejecutará cuando se inicie un contenedor, pero si se especifíca un CMD, será sobreescrito por cualquier comando que se pase al contenedor.
 
+Esto nos da flexibilidad de modificar el comportamiento de un contenedor sin tener que modificar el Dockerfile.
+
+Ademas de lo visto anteriormente, podemos pasar agrumentos a nuestro proceso de construcción y definir variables de entorno en nuestro Dockerfile. 
+
+Para pasar argumentos podemos usar la instrucción ARG:
+
+    FROM alpine
+
+    Declarar un argumento con un valor predeterminado
+    ARG NOMBRE="Mundo"
+
+    Crear un archivo que contenga el mensaje personalizado
+    RUN echo "Hola $NOMBRE" > /message 
+
+    Comando predeterminado para mostrar el contenido del archivo
+    CMD ["cat", "/message"]
+
+También podemos sobreescribir el argumento NOMBRE, durante el proceso de construcción con:
+
+    docker build --build-arg NOMBRE=dockermaniatico -t saludador .
+
+Por último, vamos a ver cómo pasar variables de entorno a nuestros contenedores en el momento de ejecutarlos:
+
+    docker run -e DEBUG=1 mi_aplicacion
+
+La filosofía de los contenedores es ser lo más agnóstico posible, es decir, que no dependan de un entorno concreto y se puedan ejecutar en cualquier entornos, cliente y caso de uso. Por eso, es importante configurar nuestras imágenes para que no dependan de variables estáticas y que se puedan adaptar a diferentes situaciones.
+
+## Docker compose
+Es una herramienta que nos permite definir y ejecutar aplicaciones formadas por múltiples contenedores. Podemos definir un archivo YAML con la configuración de los servicios que forman nuestra aplicación y luego ejecutarla con un solo comando.
+
+Su lógica es simple, nos permite definir en un mismo fichero múltiples servicios, volúmenes, redes, secretos y configuraciones, algo que hasta ahora habríamos trabajado de forma individual y usando el cli. Por defecto, se suele usar un fichero llamado "compose.yaml". El archivo contará con los siguientes puntos:
+
+*Servicios*: Contiene la definición de la imagen que van a ejecutar, los puertos que exponen, volúmenes, redes, variables de entorno, etc. Todo lo que hacíamos con el comando docker run y que lo podemos definir en un solo bloque.
+Y luego, todos los recursos que necesitamos para que nuestra aplicación funcione:
+
+*Volúmenes*: que antes definíamos con docker volume create o con el flag -v en docker run, y que ahora automatizaremos su uso (y su creación si no existe).
+
+*Redes*: que antes definíamos con docker network create o con el flag --network en docker run, y que ahora automatizaremos su uso (y su creación si no existe).
+
+*Secretos y configuraciones*: que antes definíamos con docker secret create o con el flag --secret en docker run. 
+
+Los comandos más comunes para usar docker compose son:
+
+    docker compose up: Levanta todos los servicios definidos en el fichero compose.
+    docker compose up -d: Levanta todos los servicios en segundo plano.
+    docker compose down: Detiene y elimina todos los servicios.
+    docker compose ps: Muestra el estado de los servicios.
+    docker compose logs: Muestra los logs de los servicios.
+    docker compose exec <servicio> <comando>: Ejecuta un comando en un servicio
